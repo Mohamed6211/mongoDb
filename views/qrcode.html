@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="jsQR.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.js"></script>
+  <script src="qrcodeJs.js"></script>
+
+  <title>QR Code Authentication</title>
+</head>
+<body>
+  <div id="camera"></div>
+  <button onclick="startQRCodeScanner()">Scan QR Code</button>
+  <video id="qrCodeScanner" width="400" height="300" autoplay></video>
+
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="authenticate()">Authenticate</button>
+  <input type="file" accept="image/*" id="qrCodeInput">
+
+ 
+  <div id="qrcode"></div>
+  <button id="generateButton">Generate QR Code</button>
+    <script>
+        const qrCodeInput = document.getElementById('qrCodeInput');
+    qrCodeInput.addEventListener('change', handleFileSelect);
+    // Add event listener to the generate button
+document.getElementById('generateButton').addEventListener('click', function() {
+// Call the generateQRCode function with desired text content
+generateQRCode('Hello, world!');
+});
+    </script>
+
+</body>
+</html>
