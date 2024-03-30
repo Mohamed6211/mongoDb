@@ -12,7 +12,8 @@
   <ul id="data-list">
     
   </ul>
-
+  <h1>Add User</h1>
+  <button id="addUserBtn">Add User</button>
   <script>
         // Fetch data from the API endpoint
         fetch('/api/data')
@@ -32,7 +33,7 @@
                 // Iterate over the data and create list items
                 data.forEach(item => {
                     const li = document.createElement('li');
-                    li.textContent = item.nom; // Assuming each item has a 'name' property
+                    li.textContent = item.nom + '    |    '+item.age ; // Assuming each item has a 'name' property
                     dataList.appendChild(li);
                 });
             })
@@ -43,6 +44,45 @@
                 const dataList = document.getElementById('data-list');
                 dataList.innerHTML = '<li>Error fetching data</li>';
             });
+
+
+            // script.js
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Get the button element
+  const addUserBtn = document.getElementById('addUserBtn');
+
+  // Add click event listener to the button
+  addUserBtn.addEventListener('click', function() {
+    // Send a POST request to your backend server when the button is clicked
+    fetch('/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        // Provide user data to be added to the database
+        nom: 'aaaaaaa',
+        age: 19
+        // Add more fields as needed
+      })
+    })
+    .then(response => {
+      if (response.ok) {
+        console.log('User added successfully');
+        // Optionally, perform any UI updates or show a success message
+      } else {
+        console.error('Failed to add user');
+        // Optionally, handle error and show an error message
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      // Handle network errors or other exceptions
+    });
+  });
+});
+
   </script>
 </body>
 </html>
