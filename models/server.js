@@ -28,7 +28,11 @@ connectDB();
 const indexRouter = require('../routes/index');
 app.use(express.static(path.join(__dirname, '../')));
 app.use('/', indexRouter);
-app.use('/api/data', indexRouter);
+// app.use('/api/data', indexRouter);
+// app.use('/api/users', indexRouter);
+// app.use('/api/users/:id', indexRouter);
+
+
 // app.get('/', (req, res) => {
 //     res.sendFile(path.join(__dirname, 'index.html'));
 // });

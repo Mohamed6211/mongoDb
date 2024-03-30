@@ -1,24 +1,25 @@
 
 require('dotenv').config();
 
-const { MongoClient } = require('mongodb');
-// const uri = "mongodb+srv://melmzouri:sinuscardi171546@mydatabase.pa7lxse.mongodb.net/?retryWrites=true&w=majority&appName=myDataBase&ssl=true&authSource=admin";
+// const { MongoClient } = require('mongodb');
+// // const uri = "mongodb+srv://melmzouri:sinuscardi171546@mydatabase.pa7lxse.mongodb.net/?retryWrites=true&w=majority&appName=myDataBase&ssl=true&authSource=admin";
 
-const connectDB = async () => {
-    const uri = process.env.MONGODB_URI;
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+// const connectDB = async () => {
+//     const uri = process.env.MONGODB_URI;
+//   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-  try {
-    await client.connect();
-    console.log('Connected to MongoDB');
-    return client;
-  } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
-    process.exit(1); // Exit the process if connection fails
-  }
-};
+//   try {
+//     await client.connect();
+//     console.log('Connected to MongoDB');
+//     _db = client.db('myDataBase');
+//     return client;
+//   } catch (error) {
+//     console.error('Error connecting to MongoDB:', error);
+//     process.exit(1); // Exit the process if connection fails
+//   }
+// };
 
-module.exports = connectDB;
+// module.exports = connectDB;
 
 
 
@@ -132,3 +133,39 @@ module.exports = connectDB;
 
 // db.js
 
+
+let _db;
+
+function getDb() {
+    if (!_db) {
+        throw new Error('Database not initialized!');
+    }
+    return _db;
+}
+
+module.exports = {
+    getDb,
+    connect: async function() {
+        // Code to establish database connection
+        // For example, using MongoClient to connect to MongoDB
+        const MongoClient = require('mongodb').MongoClient;
+        const uri = process.env.MONGODB_URI;
+        
+        const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+        
+        try {
+            await client.connect();
+            console.log('Connected to the database');
+            _db = client.db('myDataBase');
+        } catch (error) {
+            console.error('Error connecting to the database:', error);
+            throw error;
+        }
+    },
+    close: async function() {
+        if (_db) {
+            await _db.close();
+            console.log('Database connection closed');
+        }
+    }
+};
