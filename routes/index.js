@@ -4,7 +4,12 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const client = req.app.locals.dbClient;
-    const collection = client.db('myDataBase').collection('users');
+    if (!client) {
+      throw new Error('Database client is not available');
+    }
+
+    const database = client.db('myDataBase');
+    const collection = database.collection('users');
     const data = await collection.find().toArray();
     res.render('index', { data });
   } catch (error) {
