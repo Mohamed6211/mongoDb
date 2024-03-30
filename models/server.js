@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 3001;
 // Connect to MongoDB
 connectDB()
   .then(client => {
+    app.locals.dbClient = client;
     // Define routes after database connection is established
     const indexRouter = require('../routes/index');
     app.use('/', indexRouter);
