@@ -9,10 +9,24 @@
 </head>
 <body>
   <h1>Database Records</h1>
-  <ul>
-    <% data.forEach(record => { %>
-      <li><%= record.nom %> - <%= record.password %></li>
-    <% }); %>
+  <ul id="data-list">
+    
   </ul>
+
+  <script>
+    fetch('/api/data')
+    .then(response => response.json())
+    .then(data => {
+        // Update the HTML page with the retrieved data
+        // For example, display the data in a list
+        const dataList = document.getElementById('data-list');
+        data.forEach(item => {
+            const listItem = document.createElement('li');
+            listItem.textContent = item.nom; // Assuming each item has a 'name' property
+            dataList.appendChild(listItem);
+        });
+    })
+    .catch(error => console.error('Error fetching data:', error));
+  </script>
 </body>
 </html>
