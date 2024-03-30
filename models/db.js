@@ -3,10 +3,10 @@ require('dotenv').config();
 
 const { MongoClient } = require('mongodb');
 // const uri = "mongodb+srv://melmzouri:sinuscardi171546@mydatabase.pa7lxse.mongodb.net/?retryWrites=true&w=majority&appName=myDataBase&ssl=true&authSource=admin";
-const uri = process.env.MONGODB_URI;
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
 const connectDB = async () => {
-    
+    const uri = process.env.MONGODB_URI;
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
   try {
     await client.connect();
