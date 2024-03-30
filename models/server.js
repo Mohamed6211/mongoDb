@@ -4,20 +4,21 @@ const { MongoClient } = require('mongodb');
 const app = express();
 
 // MongoDB connection URI
-const uri = process.env.MONGODB_URI;
+const connectDB = async () => {
+    const uri = process.env.MONGODB_URI;
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-// Connect to MongoDB
-MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
-    if (err) {
-        console.error('Error connecting to MongoDB:', err);
-        return;
-    }
-
+  try {
+    await client.connect();
     console.log('Connected to MongoDB');
-    // Store the MongoDB client in app.locals
+    console.log(client)
     app.locals.dbClient = client;
-});
-
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+    process.exit(1); // Exit the process if connection fails
+  }
+};
+connectDB();
 // Other setup code and middleware
 
 // Define routes
