@@ -2,6 +2,9 @@ const { MongoClient } = require('mongodb');
 console.log('Before dotenv config');
 require('dotenv').config();
 console.log('After dotenv config');
+
+
+console.log('MongoDB Node.js driver version:', MongoClient.version);
 console.log(process.env.MONGODB_URI);
 console.log(process.env.MONGODB_URI); // Check if the MongoDB URI is printed in the console
 
