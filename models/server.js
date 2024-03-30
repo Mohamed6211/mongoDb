@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const { MongoClient } = require('mongodb');
 const app = express();
+app.set('view engine', 'ejs');
 
 // MongoDB connection URI
 const connectDB = async () => {
@@ -11,7 +12,7 @@ const connectDB = async () => {
   try {
     await client.connect();
     console.log('Connected to MongoDB');
-    console.log(client)
+    // console.log(client)
     app.locals.dbClient = client;
   } catch (error) {
     console.error('Error connecting to MongoDB:', error);

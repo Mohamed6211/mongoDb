@@ -5,7 +5,7 @@ router.get('/', async (req, res) => {
   try {
     console.log("début")
     const client = req.app.locals.dbClient;
-    console.log(client)
+    // console.log(client)
     const collection = client.db('myDataBase').collection('users');
     const data = await collection.find().toArray();
     res.render('index', { data });
